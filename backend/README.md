@@ -35,7 +35,21 @@ npm start    # Production
 - **POST** `/wallet-login` - Login with MetaMask wallet
 - **GET** `/me` - Get current logged-in user (protected)
 
-### Response Format
+### Elections (`/api/elections`)
+- **GET** `/` - Get all elections (paginated, public)
+- **GET** `/:id` - Get single election details (public)
+- **GET** `/:id/results` - Get election results (public)
+- **POST** `/create` - Create election (protected, admin only)
+- **PUT** `/:id/start` - Start election (protected, admin only)
+- **PUT** `/:id/end` - End election (protected, admin only)
+
+### Votes (`/api/votes`)
+- **POST** `/` - Cast vote (protected)
+- **GET** `/election/:electionId` - Get votes for election (protected, admin/creator only)
+- **GET** `/status/:transactionHash` - Check vote status (public)
+- **PUT** `/:voteId/confirm` - Confirm vote transaction (protected, admin only)
+
+## Response Format
 All responses follow this format:
 ```json
 {
@@ -81,8 +95,32 @@ router.post('/admin-route', protect, adminOnly, controller);
 - `isAdmin` - Admin flag
 - `hasVoted` - Voting status
 
+### Election
+- `title` - Election title
+- `description` - Election description
+- `candidates` - Array of candidates with vote counts
+- `startTime` - When election starts
+- `endTime` - When election ends
+- `status` - pending | active | ended | archived
+- `createdBy` - User ID of creator
+- `voterCount` - Total number of votes
+- `contractAddress` - Blockchain contract address (optional)
+
+### Vote
+- `electionId` - Reference to election
+- `userId` - Reference to user who voted
+- `candidateName` - Name of candidate voted for
+- `transactionHash` - Blockchain transaction hash
+- `status` - pending | confirmed | failed
+- `walletAddress` - User's wallet address (optional)
+- `blockNumber` - Block number where vote was recorded
+- `gasUsed` - Gas used for transaction
+
 ## Next Steps
-- Implement Election CRUD APIs
-- Implement Vote API with transaction hash storage
-- Add admin election management endpoints
-- Add tests
+- Add input validation service
+- Add error handling service
+- Add blockchain integration service (ethers.js)
+- Add transaction verification service
+- Add comprehensive error handling and logging
+- Write unit and integration tests
+- Add rate limiting and security headers

@@ -32,9 +32,13 @@ connectDB();
 
 // Routes
 const authRoutes = require('./routes/auth');
+const electionRoutes = require('./routes/elections');
+const voteRoutes = require('./routes/votes');
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/elections', electionRoutes);
+app.use('/api/votes', voteRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
