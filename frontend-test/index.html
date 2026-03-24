@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sepolia Election Tester</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <h1>Election Smart Contract Tester</h1>
+        <p>Network: <strong>Sepolia</strong> | Contract: <span id="contractAddress"></span></p>
+      </header>
+
+      <section class="panel">
+        <div class="row">
+          <button id="connectBtn">Connect MetaMask</button>
+          <button id="refreshBtn" class="secondary">Refresh Data</button>
+        </div>
+        <p id="walletStatus" class="muted">Wallet: Not connected</p>
+        <p id="networkStatus" class="muted">Network: Unknown</p>
+      </section>
+
+      <section class="panel">
+        <h2>Cast Vote</h2>
+        <div class="row">
+          <label for="candidateIndex">Candidate Index</label>
+          <input id="candidateIndex" type="number" min="0" placeholder="e.g. 1" />
+          <button id="voteBtn">Vote</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Live Candidates</h2>
+        <div id="candidates" class="candidate-grid"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Logs</h2>
+        <pre id="logs" class="logs"></pre>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
